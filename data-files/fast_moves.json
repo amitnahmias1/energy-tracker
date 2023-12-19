@@ -1,0 +1,548 @@
+[
+  {
+    "id": "ACID",
+    "name": "Acid",
+    "type": "poison",
+    "energy": 5
+  },
+  {
+    "id": "AIR_SLASH",
+    "name": "Air Slash",
+    "type": "flying",
+    "energy": 9
+  },
+  {
+    "id": "ASTONISH",
+    "name": "Astonish",
+    "type": "ghost",
+    "energy": 10
+  },
+  {
+    "id": "BITE",
+    "name": "Bite",
+    "type": "dark",
+    "energy": 2
+  },
+  {
+    "id": "BUBBLE",
+    "name": "Bubble",
+    "type": "water",
+    "energy": 11
+  },
+  {
+    "id": "BUG_BITE",
+    "name": "Bug Bite",
+    "type": "bug",
+    "energy": 3
+  },
+  {
+    "id": "BULLET_PUNCH",
+    "name": "Bullet Punch",
+    "type": "steel",
+    "energy": 7
+  },
+  {
+    "id": "BULLET_SEED",
+    "name": "Bullet Seed",
+    "type": "grass",
+    "energy": 13
+  },
+  {
+    "id": "CHARGE_BEAM",
+    "name": "Charge Beam",
+    "type": "electric",
+    "energy": 11
+  },
+  {
+    "id": "CHARM",
+    "name": "Charm",
+    "type": "fairy",
+    "energy": 6
+  },
+  {
+    "id": "CONFUSION",
+    "name": "Confusion",
+    "type": "psychic",
+    "energy": 12
+  },
+  {
+    "id": "COUNTER",
+    "name": "Counter",
+    "type": "fighting",
+    "energy": 7
+  },
+  {
+    "id": "CUT",
+    "name": "Cut",
+    "type": "normal",
+    "energy": 2
+  },
+  {
+    "id": "DOUBLE_KICK",
+    "name": "Double Kick",
+    "type": "fighting",
+    "energy": 12
+  },
+  {
+    "id": "DRAGON_BREATH",
+    "name": "Dragon Breath",
+    "type": "dragon",
+    "energy": 3
+  },
+  {
+    "id": "DRAGON_TAIL",
+    "name": "Dragon Tail",
+    "type": "dragon",
+    "energy": 9
+  },
+  {
+    "id": "EMBER",
+    "name": "Ember",
+    "type": "fire",
+    "energy": 6
+  },
+  {
+    "id": "EXTRASENSORY",
+    "name": "Extrasensory",
+    "type": "psychic",
+    "energy": 10
+  },
+  {
+    "id": "FEINT_ATTACK",
+    "name": "Feint Attack",
+    "type": "dark",
+    "energy": 6
+  },
+  {
+    "id": "FIRE_FANG",
+    "name": "Fire Fang",
+    "type": "fire",
+    "energy": 5
+  },
+  {
+    "id": "FAIRY_WIND",
+    "name": "Fairy Wind",
+    "type": "fairy",
+    "energy": 9
+  },
+  {
+    "id": "FIRE_SPIN",
+    "name": "Fire Spin",
+    "type": "fire",
+    "energy": 10
+  },
+  {
+    "id": "FROST_BREATH",
+    "name": "Frost Breath",
+    "type": "ice",
+    "energy": 5
+  },
+  {
+    "id": "FURY_CUTTER",
+    "name": "Fury Cutter",
+    "type": "bug",
+    "energy": 4
+  },
+  {
+    "id": "GEOMANCY",
+    "name": "Geomancy",
+    "type": "fairy",
+    "energy": 13
+  },
+  {
+    "id": "GUST",
+    "name": "Gust",
+    "type": "flying",
+    "energy": 12
+  },
+  {
+    "id": "HEX",
+    "name": "Hex",
+    "type": "ghost",
+    "energy": 12
+  },
+  {
+    "id": "HIDDEN_POWER_BUG",
+    "name": "Hidden Power (Bug)",
+    "type": "bug",
+    "energy": 8
+  },
+  {
+    "id": "HIDDEN_POWER_DARK",
+    "name": "Hidden Power (Dark)",
+    "type": "dark",
+    "energy": 8
+  },
+  {
+    "id": "HIDDEN_POWER_DRAGON",
+    "name": "Hidden Power (Dragon)",
+    "type": "dragon",
+    "energy": 8
+  },
+  {
+    "id": "HIDDEN_POWER_ELECTRIC",
+    "name": "Hidden Power (Electric)",
+    "type": "electric",
+    "energy": 8
+  },
+  {
+    "id": "HIDDEN_POWER_FIGHTING",
+    "name": "Hidden Power (Fighting)",
+    "type": "fighting",
+    "energy": 8
+  },
+  {
+    "id": "HIDDEN_POWER_FIRE",
+    "name": "Hidden Power (Fire)",
+    "type": "fire",
+    "energy": 8
+  },
+  {
+    "id": "HIDDEN_POWER_FLYING",
+    "name": "Hidden Power (Flying)",
+    "type": "flying",
+    "energy": 8
+  },
+  {
+    "id": "HIDDEN_POWER_GHOST",
+    "name": "Hidden Power (Ghost)",
+    "type": "ghost",
+    "energy": 8
+  },
+  {
+    "id": "HIDDEN_POWER_GRASS",
+    "name": "Hidden Power (Grass)",
+    "type": "grass",
+    "energy": 8
+  },
+  {
+    "id": "HIDDEN_POWER_GROUND",
+    "name": "Hidden Power (Ground)",
+    "type": "ground",
+    "energy": 8
+  },
+  {
+    "id": "HIDDEN_POWER_ICE",
+    "name": "Hidden Power (Ice)",
+    "type": "ice",
+    "energy": 8
+  },
+  {
+    "id": "HIDDEN_POWER_POISON",
+    "name": "Hidden Power (Poison)",
+    "type": "poison",
+    "energy": 8
+  },
+  {
+    "id": "HIDDEN_POWER_PSYCHIC",
+    "name": "Hidden Power (Psychic)",
+    "type": "psychic",
+    "energy": 8
+  },
+  {
+    "id": "HIDDEN_POWER_ROCK",
+    "name": "Hidden Power (Rock)",
+    "type": "rock",
+    "energy": 8
+  },
+  {
+    "id": "HIDDEN_POWER_STEEL",
+    "name": "Hidden Power (Steel)",
+    "type": "steel",
+    "energy": 8
+  },
+  {
+    "id": "HIDDEN_POWER_WATER",
+    "name": "Hidden Power (Water)",
+    "type": "water",
+    "energy": 8
+  },
+  {
+    "id": "ICE_FANG",
+    "name": "Ice Fang",
+    "type": "ice",
+    "energy": 5
+  },
+  {
+    "id": "ICE_SHARD",
+    "name": "Ice Shard",
+    "type": "ice",
+    "energy": 10
+  },
+  {
+    "id": "INCINERATE",
+    "name": "Incinerate",
+    "type": "fire",
+    "energy": 20
+  },
+  {
+    "id": "INFESTATION",
+    "name": "Infestation",
+    "type": "bug",
+    "energy": 12
+  },
+  {
+    "id": "IRON_TAIL",
+    "name": "Iron Tail",
+    "type": "steel",
+    "energy": 7
+  },
+  {
+    "id": "KARATE_CHOP",
+    "name": "Karate Chop",
+    "type": "fighting",
+    "energy": 8
+  },
+  {
+    "id": "LEAFAGE",
+    "name": "Leafage",
+    "type": "grass",
+    "energy": 7
+  },
+  {
+    "id": "LICK",
+    "name": "Lick",
+    "type": "ghost",
+    "energy": 3
+  },
+  {
+    "id": "LOCK_ON",
+    "name": "Lock On",
+    "type": "normal",
+    "energy": 5
+  },
+  {
+    "id": "LOW_KICK",
+    "name": "Low Kick",
+    "type": "fighting",
+    "energy": 5
+  },
+  {
+    "id": "MAGICAL_LEAF",
+    "name": "Magical Leaf",
+    "type": "grass",
+    "energy": 10
+  },
+  {
+    "id": "METAL_CLAW",
+    "name": "Metal Claw",
+    "type": "steel",
+    "energy": 6
+  },
+  {
+    "id": "MUD_SHOT",
+    "name": "Mud Shot",
+    "type": "ground",
+    "energy": 9
+  },
+  {
+    "id": "MUD_SLAP",
+    "name": "Mud Slap",
+    "type": "ground",
+    "energy": 9
+  },
+  {
+    "id": "PECK",
+    "name": "Peck",
+    "type": "flying",
+    "energy": 5
+  },
+  {
+    "id": "POISON_JAB",
+    "name": "Poison Jab",
+    "type": "poison",
+    "energy": 7
+  },
+  {
+    "id": "POISON_STING",
+    "name": "Poison Sting",
+    "type": "poison",
+    "energy": 9
+  },
+  {
+    "id": "POUND",
+    "name": "Pound",
+    "type": "normal",
+    "energy": 4
+  },
+  {
+    "id": "POWDER_SNOW",
+    "name": "Powder Snow",
+    "type": "ice",
+    "energy": 8
+  },
+  {
+    "id": "PRESENT",
+    "name": "Present",
+    "type": "normal",
+    "energy": 12
+  },
+  {
+    "id": "PSYCHO_CUT",
+    "name": "Psycho Cut",
+    "type": "psychic",
+    "energy": 9
+  },
+  {
+    "id": "QUICK_ATTACK",
+    "name": "Quick Attack",
+    "type": "normal",
+    "energy": 8
+  },
+  {
+    "id": "RAZOR_LEAF",
+    "name": "Razor Leaf",
+    "type": "grass",
+    "energy": 4
+  },
+  {
+    "id": "ROCK_SMASH",
+    "name": "Rock Smash",
+    "type": "fighting",
+    "energy": 7
+  },
+  {
+    "id": "ROCK_THROW",
+    "name": "Rock Throw",
+    "type": "rock",
+    "energy": 5
+  },
+  {
+    "id": "ROLLOUT",
+    "name": "Rollout",
+    "type": "rock",
+    "energy": 13
+  },
+  {
+    "id": "SCRATCH",
+    "name": "Scratch",
+    "type": "normal",
+    "energy": 2
+  },
+  {
+    "id": "SHADOW_CLAW",
+    "name": "Shadow Claw",
+    "type": "ghost",
+    "energy": 8
+  },
+  {
+    "id": "SMACK_DOWN",
+    "name": "Smack Down",
+    "type": "rock",
+    "energy": 8
+  },
+  {
+    "id": "SNARL",
+    "name": "Snarl",
+    "type": "dark",
+    "energy": 13
+  },
+  {
+    "id": "SPARK",
+    "name": "Spark",
+    "type": "electric",
+    "energy": 7
+  },
+  {
+    "id": "SPLASH",
+    "name": "Splash",
+    "type": "water",
+    "energy": 12
+  },
+  {
+    "id": "STEEL_WING",
+    "name": "Steel Wing",
+    "type": "steel",
+    "energy": 7
+  },
+  {
+    "id": "STRUGGLE_BUG",
+    "name": "Struggle Bug",
+    "type": "bug",
+    "energy": 8
+  },
+  {
+    "id": "SUCKER_PUNCH",
+    "name": "Sucker Punch",
+    "type": "dark",
+    "energy": 7
+  },
+  {
+    "id": "TACKLE",
+    "name": "Tackle",
+    "type": "normal",
+    "energy": 3
+  },
+  {
+    "id": "TAKE_DOWN",
+    "name": "Take Down",
+    "type": "normal",
+    "energy": 8
+  },
+  {
+    "id": "THUNDER_FANG",
+    "name": "Thunder Fang",
+    "type": "electric",
+    "energy": 5
+  },
+  {
+    "id": "THUNDER_SHOCK",
+    "name": "Thunder Shock",
+    "type": "electric",
+    "energy": 9
+  },
+  {
+    "id": "VINE_WHIP",
+    "name": "Vine Whip",
+    "type": "grass",
+    "energy": 8
+  },
+  {
+    "id": "VOLT_SWITCH",
+    "name": "Volt Switch",
+    "type": "electric",
+    "energy": 16
+  },
+  {
+    "id": "WATER_GUN",
+    "name": "Water Gun",
+    "type": "water",
+    "energy": 3
+  },
+  {
+    "id": "WATER_GUN_FAST_BLASTOISE",
+    "name": "Water Gun Fast Blastoise",
+    "type": "water",
+    "energy": 4
+  },
+  {
+    "id": "WATERFALL",
+    "name": "Waterfall",
+    "type": "water",
+    "energy": 8
+  },
+  {
+    "id": "WATER_SHURIKEN",
+    "name": "Water Shuriken",
+    "type": "water",
+    "energy": 14
+  },
+  {
+    "id": "WING_ATTACK",
+    "name": "Wing Attack",
+    "type": "flying",
+    "energy": 8
+  },
+  {
+    "id": "YAWN",
+    "name": "Yawn",
+    "type": "normal",
+    "energy": 12
+  },
+  {
+    "id": "ZEN_HEADBUTT",
+    "name": "Zen Headbutt",
+    "type": "psychic",
+    "energy": 6
+  }
+]
