@@ -13,7 +13,6 @@ class pokemon:
 
         self.energy = 0
 
-
     def get_mon_data(self):
         with open('data-files/mons.json', 'r') as file:
             data = json.load(file)
@@ -42,7 +41,18 @@ class pokemon:
         self.chargedMoves = cms
 
 
-a = pokemon("Skarmory")
+def get_possible_options(str1):
+    valid_options = []
+    with open('data-files/mons.json', 'r') as file:
+        data = json.load(file)
+        for mon in data:
+            if str1.lower() == mon["name"][:len(str1)].lower():
+                valid_options.append(mon["name"])
+    return valid_options
+
+#a = pokemon("Skarmory")
+
+get_possible_options("la")
 
 
 
