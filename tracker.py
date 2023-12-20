@@ -3,9 +3,11 @@ class pokemon:
     def __init__(self, name):
         self.name = name
 
+        self.id = None
         self.types = None
         self.fastMoves = None
         self.chargedMoves = None
+        self.isImagePulled = False
 
         self.get_mon_data()
         self.get_fm_data()
@@ -18,6 +20,7 @@ class pokemon:
             data = json.load(file)
             for mon in data:
                 if mon["name"] == self.name:
+                    self.id = mon["id"]
                     self.types = mon["types"]
                     self.fastMoves = mon["fastMoves"]
                     self.chargedMoves = mon["chargedMoves"]
@@ -41,6 +44,7 @@ class pokemon:
         self.chargedMoves = cms
 
 
+
 def get_possible_options(str1):
     valid_options = []
     with open('data-files/mons.json', 'r') as file:
@@ -52,7 +56,7 @@ def get_possible_options(str1):
 
 #a = pokemon("Skarmory")
 
-get_possible_options("la")
+# print(get_possible_options("la"))
 
 
 
