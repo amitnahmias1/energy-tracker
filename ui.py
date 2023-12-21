@@ -34,7 +34,7 @@ def draw_pokemons():
                 mon.isImagePulled = True
 
             draw_pokemon_name(i, mon.name, mon.types[0])
-
+            draw_fast_move(i, mon.fastMoves)
 
         else:
             if pokemon_pointer != i or user_text == "":
@@ -51,7 +51,7 @@ def draw_none_mon(index):
     screen.blit(text, (center_pos(100 + 400 * index, 300, text.get_rect().width), 120))
 def draw_pointer(index):
     for i in range(3):
-        pygame.draw.rect(screen, green if i == index else black, (90 + 400 * i, 90, 320, 620), 10)
+        pygame.draw.rect(screen, green if i == index else black, (85 + 400 * i, 85, 330, 630), 10)
     pygame.display.flip()
 def center_pos(starting, rect_len, word_len):
     return (rect_len - word_len) // 2 + starting
@@ -92,8 +92,16 @@ def draw_pokemon_name(index, name, typ):
     name_list = name.split()
     for j, str1 in enumerate(name_list):
         text = my_font.render(str1, False, colors[typ])
-        screen.blit(text, (center_pos(100 + 400 * index, 300, text.get_rect().width), 300 + 40 * j))
+        screen.blit(text, (center_pos(100 + 400 * index, 300, text.get_rect().width), 300 + 37 * j))
+def draw_fast_move(index, fast_moves):
+    fm = fast_moves[0]
+    name, typ = fm["name"], fm["type"]
+    text = my_font.render(name, False, colors[typ])
+    text_width = text.get_rect().width
+    pygame.draw.rect(screen, colors[typ], (center_pos(100, 300, text_width + 30) + 400 * index, 385, text_width + 30, 50), 5)
+    screen.blit(text, (center_pos(100 + 400 * index, 300, text_width), 388))
 # default settings
+
 
 pokemons = [None for i in range(3)]
 pokemon_pointer = 0
