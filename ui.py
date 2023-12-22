@@ -13,6 +13,7 @@ colors = {"poison": "#bb62d0", "normal": "#939ba1", "psychic": "#f97277", "rock"
 
 pygame.font.init()
 my_font = pygame.font.SysFont('Comic Sans MS', 30)
+font20 = pygame.font.SysFont('Comic Sans MS', 18)
 
 black = [0, 0, 0]
 white = [255, 255, 255]
@@ -35,6 +36,7 @@ def draw_pokemons():
 
             draw_pokemon_name(i, mon.name, mon.types[0])
             draw_fast_move(i, mon.fastMoves)
+            draw_charged_moves(i, mon.chargedMoves, mon.energy)
 
         else:
             if pokemon_pointer != i or user_text == "":
@@ -100,7 +102,16 @@ def draw_fast_move(index, fast_moves):
     text_width = text.get_rect().width
     pygame.draw.rect(screen, colors[typ], (center_pos(100, 300, text_width + 30) + 400 * index, 385, text_width + 30, 50), 5)
     screen.blit(text, (center_pos(100 + 400 * index, 300, text_width), 388))
+def draw_charged_moves(index, charged_moves, energy):
+    cms = charged_moves[:2]
+    for i, cm in enumerate(cms):
+        name, typ = cm["name"], cm["type"]
+        text = font20.render(name, False, colors[typ])
+        pygame.draw.circle(screen, colors[typ], (200 + 100 * i + 400 * index, 530), 40)
+        screen.blit(text, (center_pos(200 + 100 * i + 400 * index, 0, text.get_rect().width), 575))
+
 # default settings
+
 
 
 pokemons = [None for i in range(3)]
@@ -118,7 +129,7 @@ running = True
 while running:
 
     x, y = pygame.mouse.get_pos()
-    #print(x, y)
+    print(x, y)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

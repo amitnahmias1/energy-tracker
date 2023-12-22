@@ -13,7 +13,7 @@ class pokemon:
         self.get_fm_data()
         self.get_cm_data()
         self.make_preferred_moves_first()
-
+        print(self.chargedMoves)
         self.energy = 0
 
     def get_mon_data(self):
