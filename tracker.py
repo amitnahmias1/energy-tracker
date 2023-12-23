@@ -13,7 +13,7 @@ class pokemon:
         self.get_fm_data()
         self.get_cm_data()
         self.make_preferred_moves_first()
-        print(self.chargedMoves)
+
         self.energy = 0
 
     def get_mon_data(self):
@@ -57,6 +57,9 @@ class pokemon:
                                 tmp = move
                                 self.chargedMoves.remove(move)
                                 self.chargedMoves.insert(0, tmp)
+    def change_fast_moves_order(self):
+        a = self.fastMoves.pop(0)
+        self.fastMoves.append(a)
 
 
 
