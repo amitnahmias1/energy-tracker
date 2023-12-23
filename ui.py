@@ -18,8 +18,10 @@ my_font = pygame.font.SysFont('Comic Sans MS', 30)
 font20 = pygame.font.SysFont('Comic Sans MS', 22)
 font35 = pygame.font.SysFont('Comic Sans MS', 40)
 font15 = pygame.font.SysFont('Comic Sans MS', 15)
+font60 = pygame.font.SysFont('Comic Sans MS', 60)
 
 
+red = [255, 0, 0]
 black = [0, 0, 0]
 white = [255, 255, 255]
 green = [0, 255, 0]
@@ -45,7 +47,7 @@ def draw_pokemons():
 
             draw_pokemon_name(i, mon.name, mon.types[0])
             draw_fast_move(i, mon.fastMoves)
-            draw_charged_moves(i, mon.fastMoves, mon.chargedMoves, 0)
+            draw_charged_moves(i, mon.fastMoves, mon.chargedMoves, mon.energy)
 
         else:
             if pokemon_pointer != i or user_text == "":
@@ -123,22 +125,16 @@ def draw_charged_move_names(name, typ, pokemon_i, move_i):
     for j, name in enumerate(names):
         text = font20.render(name, False, colors[typ])
         screen.blit(text, (center_pos(200 + 100 * move_i + 400 * pokemon_i, 0, text.get_rect().width), 575 + j * 25))
-
 def draw_number_on_charged_move(pokemon_i, move_i, fm_energy, cm_energy, energy):
-    fasts_for_charged_move = (cm_energy - 1) // fm_energy + 1
-    a = [fasts_for_charged_move for i in range(3)]
-    charged_moves_ready = energy // cm_energy
-    for i in range(charged_moves_ready):
-        a[i] = 0
-    fasts_for_next_move = (cm_energy - energy % cm_energy - 1) // fm_energy + 1
-    a[charged_moves_ready] = fasts_for_next_move
+    a = [(cm_energy * i - energy - 1) // fm_energy + 1 for i in range(1, 4)]
+    for i, item in enumerate(a):
+        if item < 0:
+            a[i] = 0
 
     main_text = font35.render(str(a[0]), False, black)
-    screen.blit(main_text, (center_pos(200 + 100 * move_i + 400 * pokemon_i, 0, main_text.get_rect().width) - 6 , 500))
-    sub_text = font15.render(str(a[1]), False, black)
-    screen.blit(sub_text, (center_pos(200 + 100 * move_i + 400 * pokemon_i, 0, sub_text.get_rect().width), 500))
-
-
+    screen.blit(main_text, (center_pos(200 + 100 * move_i + 400 * pokemon_i, 0, main_text.get_rect().width) - 8 , 500))
+    sub_text = font15.render(f'({str(a[1])})', False, black)
+    screen.blit(sub_text, (center_pos(200 + 100 * move_i + 400 * pokemon_i, 0, sub_text.get_rect().width) + 16, 525))
 def draw_charged_move_percentage(pokemon_i, move_i, cm_energy, energy):
     surface = pygame.Surface([1300, 800], pygame.SRCALPHA)
 
@@ -159,6 +155,39 @@ def draw_charged_move_border(pokemon_i, move_i, energy):
         pygame.draw.circle(screen, white, (200 + 100 * move_i + 400 * pokemon_i, 530), 40, 9)
     else:
         pygame.draw.circle(screen, white, (200 + 100 * move_i + 400 * pokemon_i, 530), 40, 5)
+def draw_fast_move_input():
+    mon_name = pokemons[pokemon_pointer].name
+    mon_type_color = colors[pokemons[pokemon_pointer].types[0]]
+    mon_fast_move_color = colors[pokemons[pokemon_pointer].fastMoves[0]["type"]]
+    if user_fast_moves == 0:
+        text = font35.render(f"ENTER the amount of fast moves done by", False, red)
+        text2 = font35.render(mon_name, False, mon_type_color)
+        starting_x = center_pos(0, 1300, text.get_rect().width + text2.get_rect().width)
+        screen.blit(text, (starting_x, 15))
+        screen.blit(text2, (starting_x + text.get_rect().width + 16, 15))
+    else:
+        text = font60.render(str(user_fast_moves), False, mon_fast_move_color)
+        screen.blit(text, (center_pos(0, 1300, text.get_rect().width), 0))
+def draw_user_text_input():
+    text = font35.render(user_text, False, red)
+    screen.blit(text, (center_pos(0, 1300, text.get_rect().width), 15))
+def draw_pokemon_is_throwing():
+    mon_name = pokemons[pokemon_pointer].name
+    mon_type_color = colors[pokemons[pokemon_pointer].types[0]]
+    text = font35.render(mon_name, False, mon_type_color)
+    text2 = font35.render('is throwing a Charged Move! press SPACE', False, red)
+    starting_x = center_pos(0, 1300, text.get_rect().width + text2.get_rect().width)
+    screen.blit(text, (starting_x, 720))
+    screen.blit(text2, (starting_x + text.get_rect().width + 16, 720))
+def draw_cover(level):
+    if level == 1:
+        pygame.draw.rect(screen, black, (0, 0, 1300, 82))
+    elif level == 2:
+        pygame.draw.rect(screen, black, (0, 718, 1300, 82))
+    elif level == 3:
+        pygame.draw.rect(screen, black, (0, 0, 1300, 82))
+        pygame.draw.rect(screen, black, (0, 718, 1300, 82))
+
 
 # default settings
 
@@ -169,6 +198,7 @@ pokemon_pointer = 0
 option_pointer = 0
 mon_options = []
 user_text = ""
+user_fast_moves = 0
 
 
 
@@ -179,8 +209,7 @@ running = True
 while running:
 
     x, y = pygame.mouse.get_pos()
-    #print(x, y)
-
+    print(x, y)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -188,9 +217,12 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT and pokemon_pointer >= 1:
                 pokemon_pointer -= 1
+                draw_cover(3)
             if event.key == pygame.K_RIGHT and pokemon_pointer <= 1:
                 pokemon_pointer += 1
+                draw_cover(3)
             if pokemons[pokemon_pointer] == None:
+                draw_cover(3)
                 if user_text != "":
                     if event.key == pygame.K_RETURN:
                         pokemons[pokemon_pointer] = pokemon(mon_options[option_pointer])
@@ -203,20 +235,45 @@ while running:
 
                 if event.key == pygame.K_BACKSPACE:
                     user_text = user_text[:-1]
+
                 else:
                     if event.unicode >= 'A' and event.unicode <= 'z':
                         user_text += event.unicode
             else:
                 if event.unicode.lower() == 'r':
                     pokemons[pokemon_pointer] = None
+                    draw_cover(3)
                 if event.unicode.lower() == 'f':
-                    pygame.draw.rect(screen, black,(center_pos(100, 300, 215) + 400 * pokemon_pointer, 385, 215, 50))
+                    pygame.draw.rect(screen, black, (140 + 400 * pokemon_pointer, 385, 220, 50))
                     pokemons[pokemon_pointer].change_fast_moves_order()
+                if event.unicode.lower() == 'b':
+                    pygame.draw.rect(screen, black, (140 + 400 * pokemon_pointer, 577, 220, 68))
+                    pokemons[pokemon_pointer].change_2nd_cm()
+                if event.unicode.lower() == 'c':
+                    pygame.draw.rect(screen, black, (140 + 400 * pokemon_pointer, 577, 220, 68))
+                    pokemons[pokemon_pointer].change_1st_cm()
+                if event.unicode >= '0' and event.unicode <= '9':
+                    user_fast_moves = user_fast_moves * 10 + int(event.unicode)
+                    draw_cover(1)
+                if event.key == pygame.K_BACKSPACE:
+                    user_fast_moves = user_fast_moves // 10
+                    draw_cover(1)
+                if event.key == pygame.K_RETURN:
+                    if user_fast_moves > 0:
+                        pokemons[pokemon_pointer].update_energy(user_fast_moves)
+                        user_fast_moves = 0
+                        draw_cover(3)
 
     draw_pokemons()
     draw_pointer(pokemon_pointer)
     if user_text != "":
         mon_options = draw_options(user_text, pokemon_pointer)
+    if pokemons[pokemon_pointer] != None:
+        draw_fast_move_input()
+        draw_pokemon_is_throwing()
+    else:
+        draw_user_text_input()
+        user_fast_moves = 0
 
 
     pygame.display.flip()

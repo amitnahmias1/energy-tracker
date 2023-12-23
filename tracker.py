@@ -13,7 +13,6 @@ class pokemon:
         self.get_fm_data()
         self.get_cm_data()
         self.make_preferred_moves_first()
-
         self.energy = 0
 
     def get_mon_data(self):
@@ -60,7 +59,17 @@ class pokemon:
     def change_fast_moves_order(self):
         a = self.fastMoves.pop(0)
         self.fastMoves.append(a)
-
+    def change_1st_cm(self):
+        a = self.chargedMoves.pop(0)
+        self.chargedMoves.append(a)
+        self.chargedMoves[0], self.chargedMoves[1] = self.chargedMoves[1], self.chargedMoves[0]
+    def change_2nd_cm(self):
+        a = self.chargedMoves.pop(1)
+        self.chargedMoves.append(a)
+    def update_energy(self, fast_moves):
+        self.energy += fast_moves * int(self.fastMoves[0]["energy"])
+        if self.energy > 100:
+            self.energy = 100
 
 
 
