@@ -4,8 +4,11 @@ from tracker import pokemon
 from tracker import get_possible_options
 import requests
 from io import BytesIO
+import get_source_files
+import create_data_files
 
 pygame.init()
+pygame.display.set_caption('Pokemon Go Energy Tracker')
 colors = {"poison": "#bb62d0", "normal": "#939ba1", "psychic": "#f97277", "rock": "#cabb8c", "steel": "#53899d", "water": "#5399d8",
           "fire": "#ff9f53", "flying": "#95aedd", "ghost": "#535fa2", "grass": "#5ab560", "ground": "#b97046", "ice": "#7bd2c6",
           "bug": "#a5c731", "dark": "#646475", "dragon": "#0775bf", "electric": "#f6da57", "fairy": "#ef9ce2", "fighting": "#d8435d",
@@ -247,12 +250,13 @@ def draw_timer(timer_seconds):
     if timer_seconds <= 5:
         color = red
     timer_text = font60.render(f'0:{str(int(timer_seconds)).rjust(2, '0')}', True, color)
-    pygame.draw.rect(screen, color, (1350, 615, 200, 85))
-    pygame.draw.rect(screen, black, (1355, 620, 190, 75))
-    screen.blit(timer_text, (center_pos(1350, 200, timer_text.get_rect().width), 615))
+    pygame.draw.rect(screen, color, (1350, 665, 200, 85))
+    pygame.draw.rect(screen, black, (1355, 670, 190, 75))
+    screen.blit(timer_text, (center_pos(1350, 200, timer_text.get_rect().width), 665))
     return timer_seconds
 def draw_menu():
-    texts = ['M - start a new game',
+    texts = ['developed by barthegamer',
+             'M - start a new game',
              'R - reset the current pokemon',
              'E - hide / show energy',
              'F - change the current fast move',
@@ -317,7 +321,8 @@ while running:
                     mon = pokemons[pokemon_pointer]
                     if event.unicode.lower() == 'm':
                         pokemons = [None for i in range(3)]
-                        draw_cover(3)
+                        timer_seconds = 60
+                        screen.fill(black)
                     if event.unicode.lower() == 'r':
                         pokemons[pokemon_pointer] = None
                         draw_cover(3)

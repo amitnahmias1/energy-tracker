@@ -1,4 +1,9 @@
 import json
+import os
+try:
+    os.mkdir('data-files')
+except:
+    pass
 def create_moves_files():
     with open('source-files/moves.json', 'r') as file:
         data = json.load(file)
@@ -36,4 +41,7 @@ def create_preferences_file():
 
     with open('data-files/preferences.json', 'w') as preferences_file:
         json.dump(mons_data, preferences_file, indent=2)
+
+create_moves_files()
+create_pokemons_file()
 create_preferences_file()

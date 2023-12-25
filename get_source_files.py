@@ -1,4 +1,9 @@
 import requests
+import os
+try:
+    os.mkdir('source-files')
+except:
+    pass
 files = ['pokemon.json', 'moves.json', 'preferences.json']
 for index, file in enumerate(files):
     save_path = f'source-files/{file}'
