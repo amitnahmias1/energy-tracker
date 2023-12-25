@@ -7,12 +7,17 @@ class pokemon:
         self.types = None
         self.fastMoves = None
         self.chargedMoves = None
+        self.thrownChargedMoves = []
         self.isImagePulled = False
+        self.content = None
+        self.lowestRequiredEnergy = None
 
         self.get_mon_data()
         self.get_fm_data()
         self.get_cm_data()
         self.make_preferred_moves_first()
+        self.lowest_required_energy()
+
         self.energy = 0
 
     def get_mon_data(self):
@@ -66,11 +71,32 @@ class pokemon:
     def change_2nd_cm(self):
         a = self.chargedMoves.pop(1)
         self.chargedMoves.append(a)
+    def change_relevant_cm(self):
+        for move in self.thrownChargedMoves:
+            if move not in self.chargedMoves[:2]:
+                if self.chargedMoves[1] not in self.thrownChargedMoves:
+                    self.chargedMoves.remove(move)
+                    self.chargedMoves.insert(1, move)
+                    return None
+                if self.chargedMoves[0] not in self.thrownChargedMoves:
+                    a = self.chargedMoves.pop(0)
+                    self.chargedMoves.remove(move)
+                    self.chargedMoves.insert(0, move)
+                    self.chargedMoves.insert(2, a)
     def update_energy(self, fast_moves):
         self.energy += fast_moves * int(self.fastMoves[0]["energy"])
         if self.energy > 100:
             self.energy = 100
-
+    def lowest_required_energy(self):
+        energy_costs = []
+        if len(self.thrownChargedMoves) == 2:
+            for move in self.thrownChargedMoves:
+                energy_costs.append(move["energy"])
+                self.lowestRequiredEnergy = min(energy_costs)
+        else:
+            for move in self.chargedMoves:
+                energy_costs.append(move["energy"])
+                self.lowestRequiredEnergy = min(energy_costs)
 
 
 def get_possible_options(str1):
