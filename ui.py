@@ -243,7 +243,7 @@ def draw_cover(level):
         pygame.draw.rect(screen, black, (0, 718, 1300, 82))
 def draw_timer(timer_seconds):
     if int(timer_seconds) == 0:
-        pygame.draw.rect(screen, black, (1350, 615, 200, 85))
+        pygame.draw.rect(screen, black, (1350, 665, 200, 85))
         return 60
     color = white
     timer_seconds -= clock.get_rawtime() / 1000.0
