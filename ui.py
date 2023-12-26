@@ -32,6 +32,7 @@ shade2 = [0, 0, 0, 130]
 shade3 = [0, 0, 0, 180]
 q = 0
 e = 0
+p = 1
 clock = pygame.time.Clock()
 
 screen = pygame.display.set_mode([1700, 800])
@@ -99,7 +100,7 @@ def draw_pokemon_image(index, mon_id, name, content):
             image_data = BytesIO(content)
             image = pygame.image.load(image_data)
         except:
-            response = requests.get(f'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/352.png')
+            response = requests.get(f'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/132.png')
             content = response.content
             image_data = BytesIO(content)
             image = pygame.image.load(image_data)
@@ -232,6 +233,8 @@ def draw_throwing_menu(mon_name, mon_type, charged_moves, thrown_moves, energy, 
             for j, name in enumerate(names):
                 text = font15.render(name, False, color)
                 screen.blit(text, (center_pos(500 + i * 70, 0, text.get_rect().width), 412 + j * 16))
+        text = font20.render('press R to revert back', False, white)
+        screen.blit(text, (center_pos(300, 700, text.get_rect().width), 545))
     return relevant_moves
 def draw_cover(level):
     if level == 1:
@@ -243,22 +246,23 @@ def draw_cover(level):
         pygame.draw.rect(screen, black, (0, 718, 1300, 82))
 def draw_timer(timer_seconds):
     if int(timer_seconds) == 0:
-        pygame.draw.rect(screen, black, (1350, 665, 200, 85))
+        pygame.draw.rect(screen, black, (1350, 680, 200, 85))
         return 60
     color = white
     timer_seconds -= clock.get_rawtime() / 1000.0
     if timer_seconds <= 5:
         color = red
     timer_text = font60.render(f'0:{str(int(timer_seconds)).rjust(2, '0')}', True, color)
-    pygame.draw.rect(screen, color, (1350, 665, 200, 85))
-    pygame.draw.rect(screen, black, (1355, 670, 190, 75))
-    screen.blit(timer_text, (center_pos(1350, 200, timer_text.get_rect().width), 665))
+    pygame.draw.rect(screen, color, (1350, 680, 200, 85))
+    pygame.draw.rect(screen, black, (1355, 685, 190, 75))
+    screen.blit(timer_text, (center_pos(1350, 200, timer_text.get_rect().width), 680))
     return timer_seconds
 def draw_menu():
     texts = ['developed by barthegamer',
              'M - start a new game',
              'R - reset the current pokemon',
              'E - hide / show energy',
+             'P - require ENTER for fast move input',
              'F - change the current fast move',
              'Z - drain the current pokemon energy',
              'C - change the first charged move',
@@ -268,7 +272,7 @@ def draw_menu():
              '0-9 - enter the amount of fast moves']
     for i, text in enumerate(texts):
         text_td = font20.render(text, False, white)
-        screen.blit(text_td, (1250, 100 + 50 * i))
+        screen.blit(text_td, (1250, 70 + 50 * i))
 
 # default settings
 pokemons = [None for i in range(3)]
@@ -302,7 +306,7 @@ while running:
                 if pokemons[pokemon_pointer] == None:
                     draw_cover(3)
                     if user_text != "":
-                        if event.key == pygame.K_RETURN:
+                        if event.key in [pygame.K_RETURN, pygame.K_KP_ENTER]:
                             pokemons[pokemon_pointer] = pokemon(mon_options[option_pointer])
                             user_text = ""
                             option_pointer = 0
@@ -319,6 +323,7 @@ while running:
                             user_text += event.unicode
                 else:
                     mon = pokemons[pokemon_pointer]
+                    print(mon.lowestRequiredEnergy)
                     if event.unicode.lower() == 'm':
                         pokemons = [None for i in range(3)]
                         timer_seconds = 60
@@ -328,6 +333,8 @@ while running:
                         draw_cover(3)
                     if event.unicode.lower() == 'e':
                         e = (e + 1) % 2
+                    if event.unicode.lower() == 'p':
+                        p = (p + 1) % 2
                     if event.unicode.lower() == 't':
                         timer_seconds = 59
                     if event.unicode.lower() == 'q':
@@ -344,12 +351,15 @@ while running:
                         pygame.draw.rect(screen, black, (140 + 400 * pokemon_pointer, 577, 220, 68))
                         mon.change_1st_cm()
                     if event.unicode >= '0' and event.unicode <= '9':
-                        user_fast_moves = user_fast_moves * 10 + int(event.unicode)
-                        draw_cover(1)
+                        if p == 0:
+                            user_fast_moves = user_fast_moves * 10 + int(event.unicode)
+                            draw_cover(1)
+                        else:
+                            mon.update_energy(int(event.unicode))
                     if event.key == pygame.K_BACKSPACE:
                         user_fast_moves = user_fast_moves // 10
                         draw_cover(1)
-                    if event.key == pygame.K_RETURN:
+                    if event.key in [pygame.K_RETURN, pygame.K_KP_ENTER]:
                         if user_fast_moves > 0:
                             mon.update_energy(user_fast_moves)
                             user_fast_moves = 0
@@ -369,7 +379,7 @@ while running:
                 if event.unicode.lower() == 'r':
                     throwing = False
                     screen.fill(black)
-                if event.key == pygame.K_RETURN:
+                if event.key in [pygame.K_RETURN, pygame.K_KP_ENTER]:
                     move = available_moves[move_pointer]
                     mon.energy -= move["energy"]
                     if move not in mon.thrownChargedMoves:
@@ -378,6 +388,7 @@ while running:
                         mon.change_relevant_cm()
                     throwing = False
                     move_pointer = 0
+                    mon.lowest_required_energy()
                     screen.fill(black)
 
     if not throwing:
@@ -391,8 +402,7 @@ while running:
         else:
             draw_user_text_input()
             user_fast_moves = 0
-    else:
-        pass
+
     if timer_seconds < 60:
         timer_seconds = draw_timer(timer_seconds)
     draw_menu()
