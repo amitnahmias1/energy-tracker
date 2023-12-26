@@ -323,7 +323,6 @@ while running:
                             user_text += event.unicode
                 else:
                     mon = pokemons[pokemon_pointer]
-                    print(mon.lowestRequiredEnergy)
                     if event.unicode.lower() == 'm':
                         pokemons = [None for i in range(3)]
                         timer_seconds = 60
