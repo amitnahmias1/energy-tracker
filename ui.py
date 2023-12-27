@@ -4,8 +4,6 @@ from tracker import pokemon
 from tracker import get_possible_options
 import requests
 from io import BytesIO
-import get_source_files
-import create_data_files
 
 pygame.init()
 pygame.display.set_caption('Pokemon Go Energy Tracker')
@@ -268,12 +266,19 @@ def draw_menu():
              'C - change the first charged move',
              'B - change the second charged move',
              'Q - change the charged move format',
-             'T - start a 59 seconds timer',
+             'ctrl - start a 59 seconds timer',
              '0-9 - enter the amount of fast moves']
     for i, text in enumerate(texts):
         text_td = font20.render(text, False, white)
         screen.blit(text_td, (1250, 70 + 50 * i))
-
+def draw_loading_screen():
+    text = font60.render('Saving source files...', False, white)
+    screen.blit(text, (100, 100))
+    pygame.display.flip()
+draw_loading_screen()
+import get_source_files
+import create_data_files
+screen.fill(black)
 # default settings
 pokemons = [None for i in range(3)]
 pokemon_pointer = 0
@@ -296,13 +301,18 @@ while running:
             running = False
             sys.exit()
         if event.type == pygame.KEYDOWN:
+            if event.key in [pygame.K_LCTRL, pygame.K_RCTRL]:
+                timer_seconds = 59
             if not throwing:
                 if event.key == pygame.K_LEFT and pokemon_pointer >= 1:
+                    user_text = ""
                     pokemon_pointer -= 1
                     draw_cover(3)
                 if event.key == pygame.K_RIGHT and pokemon_pointer <= 1:
+                    user_text = ""
                     pokemon_pointer += 1
                     draw_cover(3)
+
                 if pokemons[pokemon_pointer] == None:
                     draw_cover(3)
                     if user_text != "":
@@ -314,13 +324,13 @@ while running:
                             option_pointer += 1
                         if event.key == pygame.K_UP and option_pointer >= 1:
                             option_pointer -= 1
-
                     if event.key == pygame.K_BACKSPACE:
                         user_text = user_text[:-1]
-
+                        option_pointer = 0
                     else:
                         if event.unicode >= 'A' and event.unicode <= 'z':
                             user_text += event.unicode
+                            option_pointer = 0
                 else:
                     mon = pokemons[pokemon_pointer]
                     if event.unicode.lower() == 'm':
@@ -334,8 +344,6 @@ while running:
                         e = (e + 1) % 2
                     if event.unicode.lower() == 'p':
                         p = (p + 1) % 2
-                    if event.unicode.lower() == 't':
-                        timer_seconds = 59
                     if event.unicode.lower() == 'q':
                         q = (q + 1) % 3
                     if event.unicode.lower() == 'f':
@@ -346,6 +354,7 @@ while running:
                         mon.change_2nd_cm()
                     if event.unicode.lower() == 'z':
                         mon.energy = 0
+                        draw_cover(2)
                     if event.unicode.lower() == 'c' and mon.chargedMoves[0] not in mon.thrownChargedMoves:
                         pygame.draw.rect(screen, black, (140 + 400 * pokemon_pointer, 577, 220, 68))
                         mon.change_1st_cm()
