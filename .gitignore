@@ -7,7 +7,7 @@ source-files
 data-files
 # C extensions
 *.so
-
+dmp.mp4
 # Distribution / packaging
 .Python
 build/
